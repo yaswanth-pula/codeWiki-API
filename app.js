@@ -30,11 +30,28 @@ const articleSchema = {
 // collection
 const Article = mongoose.model("Article",articleSchema);
 
+// GET-all Route
 app.get("/articles",(req,res)=>{
     Article.find((err,resultDocs)=>{
         if(!err){
             res.json(resultDocs);
         }   
+        else{
+            res.send(err);
+        }
+    });
+});
+
+// Post(one-article) Route
+app.post("/articles",(req,res)=>{
+    const newArticle = new Article({
+        title: req.body.title,
+        content: req.body.content
+    });
+    newArticle.save((err)=>{
+        if(!err){
+            res.send("Article Post Sucessfull");
+        }
         else{
             res.send(err);
         }

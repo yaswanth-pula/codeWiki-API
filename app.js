@@ -58,6 +58,16 @@ app.post("/articles",(req,res)=>{
     });
 });
 
+// Delete(all) Route
+app.delete("/articles", (req,res)=>{
+    Article.deleteMany({},(err)=>{
+        if(!err)
+            res.send("Deleted Successfully.");
+        else
+            res.send(err);
+    });
+});
+
 app.listen(process.env.PORT || 3000, function() {
   console.log("Server is Up and Running");
 });

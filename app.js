@@ -85,9 +85,23 @@ app.route("/articles/:articleTitle")
                 res.send(err);
             }
         });
+    })
+    // put method for specific article
+    // put replaces entrie doc with new doc
+    .put((req,res)=>{
+        const reqTitle = req.params.articleTitle;
+        Article.updateOne(
+            // condition
+            {title:reqTitle},
+            // update every value
+            {title:req.body.title, content:req.body.content},
+            (err)=>{
+                if(!err) res.send("Successfully updated article");
+                else res.send(err);
+            }
+        );
     });
  
-
 app.listen(process.env.PORT || 3000, function() {
   console.log("Server is Up and Running");
 });

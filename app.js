@@ -100,8 +100,20 @@ app.route("/articles/:articleTitle")
                 else res.send(err);
             }
         );
+    })
+    // patch method for specific article
+    // updates only certain value (not replace) 
+    .patch((req,res)=>{
+        Article.updateOne(
+            { title:req.params.articleTitle },
+            { $set: req.body },
+            (err)=>{
+                if(!err) res.send("Succesfully updated article");
+                else res.send(err);
+            }
+        )
     });
- 
+    
 app.listen(process.env.PORT || 3000, function() {
   console.log("Server is Up and Running");
 });

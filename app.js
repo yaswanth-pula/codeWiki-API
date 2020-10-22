@@ -112,6 +112,15 @@ app.route("/articles/:articleTitle")
                 else res.send(err);
             }
         )
+    })
+    // deletes a specific article
+    .delete((req,res)=>{
+        Article.deleteOne(
+            {title:req.params.articleTitle},
+            (err)=>{
+                if(!err) res.send("Article deleted successfully.!");
+                else res.send("error");
+            });
     });
     
 app.listen(process.env.PORT || 3000, function() {
